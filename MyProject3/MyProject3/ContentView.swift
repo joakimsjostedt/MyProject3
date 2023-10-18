@@ -7,15 +7,29 @@
 
 import SwiftUI
 
+struct FruitModel {
+    let name: String
+    let image: String
+}
+
 struct ContentView: View {
+    let fruits = [FruitModel(name: "Apelsin", image: "🍊"),
+                  FruitModel(name: "Banan", image: "🍌"),
+                  FruitModel(name: "Citron", image: "🍋")]
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            List(fruits, id: \.name) { fruit in
+                NavigationLink(fruit.name, destination: FruitDetailView(fruit: fruit))
+            }
+        }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+struct FruitDetailView: View {
+    let fruit: FruitModel
+    
+    var body: some View {
+        Text(fruit.image)
     }
 }
